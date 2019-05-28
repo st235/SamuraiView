@@ -22,7 +22,8 @@ class SamuraiView @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     enum class Type {
-        CIRCLE, RECT
+        CIRCLE,
+        RECT
     }
 
     private val showcaseBounds = RectF()
@@ -31,6 +32,9 @@ class SamuraiView @JvmOverloads constructor(
     internal val viewFrame = RectF()
     private val showcaseFrame = RectF()
 
+    private val framePath = Path()
+    private val overlayPath = Path()
+
     private val framePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
     }
@@ -38,8 +42,6 @@ class SamuraiView @JvmOverloads constructor(
     private val overlayPaint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG).apply {
         style = Paint.Style.FILL
     }
-
-    var tooltip: ShowCaseTooltip? = null
 
     @ColorInt
     var overlayColor = Color.TRANSPARENT
@@ -68,6 +70,14 @@ class SamuraiView @JvmOverloads constructor(
             invalidate()
         }
 
+    var type: Type = Type.RECT
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    var tooltip: ShowCaseTooltip? = null
+
     init {
         isFocusable = true
         isClickable = true
@@ -78,7 +88,7 @@ class SamuraiView @JvmOverloads constructor(
         duration: Long, extraMargins: RectF =
             RectF(12.toFloatPx(), 12.toFloatPx(), 12.toFloatPx(), 12.toFloatPx())
     ) {
-        val animator = ValueAnimator.ofFloat(0F, 2F, 0F)
+        val animator = ValueAnimator.ofFloat(0F, 0.5F, 0F)
         animator.repeatCount = ValueAnimator.INFINITE
         animator.interpolator = AccelerateDecelerateInterpolator()
         animator.duration = duration
@@ -150,11 +160,28 @@ class SamuraiView @JvmOverloads constructor(
         }
 
         overlayPaint.color = overlayColor
-        val path = Path()
-        path.addRect(viewFrame, Path.Direction.CW)
+        overlayPath.rewind()
 
-        path.addRoundRect(showcaseFrame, rectRoundRadius.toPx(), rectRoundRadius.toPx(), Path.Direction.CCW)
-        canvas?.drawPath(path, overlayPaint)
+        overlayPath.addRect(viewFrame, Path.Direction.CW)
+
+        if (type == Type.CIRCLE) {
+            overlayPath.addCircle(
+                showcaseFrame.centerX(),
+                showcaseFrame.centerY(),
+                Math.max(showcaseFrame.width(), showcaseFrame.height()) / 2,
+                Path.Direction.CCW
+            )
+        } else {
+            overlayPath.addRoundRect(
+                showcaseFrame,
+                rectRoundRadius.toPx(),
+                rectRoundRadius.toPx(),
+                Path.Direction.CCW
+            )
+        }
+
+
+        canvas?.drawPath(overlayPath, overlayPaint)
     }
 
     private fun drawFrame(canvas: Canvas?) {
@@ -164,10 +191,25 @@ class SamuraiView @JvmOverloads constructor(
 
         framePaint.color = frameColor
         framePaint.strokeWidth = frameThickness.toPx()
+        framePath.rewind()
 
-        val path = Path()
-        path.addRoundRect(showcaseFrame, rectRoundRadius.toPx(), rectRoundRadius.toPx(), Path.Direction.CW)
-        canvas?.drawPath(path, framePaint)
+        if (type == Type.CIRCLE) {
+            framePath.addCircle(
+                showcaseFrame.centerX(),
+                showcaseFrame.centerY(),
+                Math.max(showcaseFrame.width(), showcaseFrame.height()) / 2,
+                Path.Direction.CW
+            )
+        } else {
+            framePath.addRoundRect(
+                showcaseFrame,
+                rectRoundRadius.toPx(),
+                rectRoundRadius.toPx(),
+                Path.Direction.CW
+            )
+        }
+
+        canvas?.drawPath(framePath, framePaint)
     }
 
     private fun applyShowcaseFrame(margins: RectF = showcaseMargins) {
@@ -185,7 +227,7 @@ class SamuraiView @JvmOverloads constructor(
 
         val fitSpec = tooltip!!.tryToFit(v, viewFrame, showcaseFrame)
 
-        when(fitSpec) {
+        when (fitSpec) {
             Fit.TOP -> {
                 p.topMargin = (showcaseFrame.top - v.measuredHeight).toInt()
             }

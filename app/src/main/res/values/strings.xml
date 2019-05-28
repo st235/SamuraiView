@@ -1,3 +1,27 @@
 <resources>
-    <string name="app_name">ShowCaseView</string>
+    <string name="app_name">SamuraiView Demo App</string>
+    <string name="action_share">Share</string>
+    <string name="share_chooser">Share article via:</string>
+    <string name="share_text">Hey, this is my article!</string>
+
+    <string name="photo_description">You see, wire telegraph is a kind of a very, very long cat. You pull his tail in New York and his head is meowing in Los Angeles. Do you understand this? And radio operates exactly the same way: you send signals here, they receive them there. The only difference is that there is no cat.</string>
+    <string-array name="cats_tags">
+        <item>cat</item>
+        <item>cats</item>
+        <item>cutecatskittens</item>
+        <item>betterwithpets</item>
+        <item>lovecats</item>
+        <item>ichliebekatzen</item>
+        <item>katzenliebe</item>
+        <item>catstagram</item>
+        <item>instacat</item>
+        <item>blackcat</item>
+        <item>catsummer</item>
+        <item>whiskerwednesday</item>
+        <item>🐱</item>
+        <item>tabbies</item>
+        <item>katt</item>
+        <item>amazing</item>
+        <item>excellentcats</item>
+    </string-array>
 </resources>

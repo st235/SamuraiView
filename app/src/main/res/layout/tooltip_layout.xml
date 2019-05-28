@@ -5,10 +5,13 @@
               android:layout_height="match_parent">
 
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-              android:text="Hello world"
-              android:textSize="20sp"
+              android:text="This is your profile"
+              android:textSize="22sp"
+              android:textStyle="bold"
               android:textColor="@android:color/black"
-              android:gravity="center"
+              android:gravity="left"
+              android:layout_marginLeft="16dp"
+              android:layout_marginBottom="8dp"
               />
 
 </LinearLayout>

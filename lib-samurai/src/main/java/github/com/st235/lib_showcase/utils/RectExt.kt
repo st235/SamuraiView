@@ -7,7 +7,7 @@ internal enum class Relation {
 }
 
 internal fun RectF.newWithMargins(another: RectF) =
-    RectF(left + another.left, right + another.right, top + another.top, bottom + another.bottom)
+    RectF(left + another.left, top + another.top, right + another.right, bottom + another.bottom)
 
 internal fun RectF.multiplyAsVector(times: Float) =
     RectF(left * times, top * times, right * times, bottom * times)

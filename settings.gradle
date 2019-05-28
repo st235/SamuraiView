@@ -1,0 +1,2 @@
+include ':app', ':lib-showcase'
+rootProject.name='ShowCaseView'

@@ -1,2 +1,2 @@
-include ':app', ':lib-showcase'
-rootProject.name='ShowCaseView'
+include ':app', ':lib-samurai'
+rootProject.name='SamuraiView'

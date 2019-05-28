@@ -8,7 +8,7 @@ import github.com.st235.lib_showcase.utils.calculateRelation
 import github.com.st235.lib_showcase.utils.doOnLayout
 import github.com.st235.lib_showcase.utils.transformGeometry
 
-class Harakiri(private val origin: SamuraiView) {
+class Harakiri(private val into: SamuraiView) {
 
     enum class CollisionStrategy {
         CRASH {
@@ -31,7 +31,7 @@ class Harakiri(private val origin: SamuraiView) {
     private var collisionStrategy = CollisionStrategy.CRASH
 
     private val basis by lazy {
-        Basis(origin)
+        Basis(into)
     }
 
 
@@ -46,7 +46,7 @@ class Harakiri(private val origin: SamuraiView) {
     }
 
     fun capture(vararg views: View) {
-        origin.doOnLayout {
+        into.doOnLayout {
             val resultRect = RectF(Float.MAX_VALUE, Float.MAX_VALUE, 0F, 0F)
 
             for (view in views) {
@@ -54,7 +54,7 @@ class Harakiri(private val origin: SamuraiView) {
                 val bounds = view.transformGeometry(position)
 
                 var isSkip = false
-                if (origin.viewFrame.calculateRelation(bounds) != Relation.CONTAINS) {
+                if (into.viewFrame.calculateRelation(bounds) != Relation.CONTAINS) {
                     isSkip = collisionStrategy.shouldSkipOnCollision(view)
                 }
 
@@ -65,9 +65,9 @@ class Harakiri(private val origin: SamuraiView) {
                     if (bounds.bottom > resultRect.bottom) resultRect.bottom = bounds.bottom
                 }
 
-                origin.setShowcase(resultRect)
+                into.setShowcase(resultRect)
                 if (highlightDuration > 0L) {
-                    origin.highlight(highlightDuration)
+                    into.highlight(highlightDuration)
                 }
             }
         }

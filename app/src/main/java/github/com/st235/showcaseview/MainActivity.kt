@@ -14,16 +14,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val showCaseView = findViewById<SamuraiView>(R.id.showcase)
+        val samuraiView = findViewById<SamuraiView>(R.id.showcase)
         val text = findViewById<TextView>(R.id.text)
         val text2 = findViewById<TextView>(R.id.text2)
 
-        showCaseView.overlayColor = 0x8FFFFFFF.toInt()
-        showCaseView.frameColor = Color.BLACK
-        showCaseView.frameThickness = 1F
-        showCaseView.tooltip = ShowCaseTooltip(R.layout.tooltip_layout)
+        samuraiView.overlayColor = 0x8FFFFFFF.toInt()
+        samuraiView.frameColor = Color.BLACK
+        samuraiView.frameThickness = 1F
+        samuraiView.tooltip = ShowCaseTooltip(R.layout.tooltip_layout)
 
-        Harakiri(showCaseView)
+        Harakiri(samuraiView)
             .highlightDuration(2_500L)
             .capture(text, text2)
     }

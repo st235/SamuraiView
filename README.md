@@ -1,6 +1,7 @@
 <img src="https://raw.githubusercontent.com/st235/SamuraiView/master/images/showcase.gif" width="600" height="205">
 
 # SamuraiView
+[ ![Download](https://api.bintray.com/packages/st235/maven/samuraiview/images/download.svg) ](https://bintray.com/st235/maven/samuraiview/_latestVersion)
 
 Simple showcase library. Made Samurai great again! ⚔️
 
@@ -11,7 +12,7 @@ Simple showcase library. Made Samurai great again! ⚔️
 ```text
 <dependency>
   <groupId>com.github.st235</groupId>
-  <artifactId>expandablebottombar</artifactId>
+  <artifactId>samuraiview</artifactId>
   <version>X.X</version>
   <type>pom</type>
 </dependency>
@@ -20,13 +21,13 @@ Simple showcase library. Made Samurai great again! ⚔️
 - Gradle
 
 ```text
-implementation 'com.github.st235:expandablebottombar:X.X'
+implementation 'com.github.st235:samuraiview:X.X'
 ```
 
 - Ivy
 
 ```text
-<dependency org='com.github.st235' name='expandablebottombar' rev='X.X'>
+<dependency org='com.github.st235' name='samuraiview' rev='X.X'>
   <artifact name='expandablebottombar' ext='pom' ></artifact>
 </dependency>
 ```

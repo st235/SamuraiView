@@ -8,4 +8,6 @@
     <color name="colorGreyOp8">#14000000</color>
     <color name="colorGreyOp16">#28000000</color>
     <color name="colorGreyOp80">#CC000000</color>
+
+    <color name="colorWhite95">#F2FFFFFF</color>
 </resources>

@@ -1,16 +1,13 @@
 package github.com.st235.lib_samurai
 
-import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
-import github.com.st235.lib_samurai.utils.*
 import github.com.st235.lib_samurai.utils.applyMargins
-import github.com.st235.lib_samurai.utils.multiply
 import github.com.st235.lib_samurai.utils.toFloatPx
 import github.com.st235.lib_samurai.utils.toPx
 
@@ -25,7 +22,7 @@ class SamuraiView @JvmOverloads constructor(
     }
 
     private val showcaseBounds = RectF()
-    private val showcaseMargins = RectF()
+    internal val showcaseMargins = RectF()
 
     internal val viewFrame = RectF()
     private val showcaseFrame = RectF()
@@ -48,11 +45,25 @@ class SamuraiView @JvmOverloads constructor(
             invalidate()
         }
 
+    @ColorRes
+    var overlayColorRes = 0
+        set(value) {
+            field = value
+            overlayColor = context.resources.getColor(value)
+        }
+
     @ColorInt
     var frameColor = Color.TRANSPARENT
         set(value) {
             field = value
             invalidate()
+        }
+
+    @ColorRes
+    var frameColorRes = 0
+        set(value) {
+            field = value
+            frameColor = context.resources.getColor(value)
         }
 
     @Dimension(unit = Dimension.DP)
@@ -75,28 +86,17 @@ class SamuraiView @JvmOverloads constructor(
         }
 
     var tooltip: SamuraiTooltip? = null
+        set(value) {
+            if (field != null) {
+                removeView(field?.getView(context, this))
+            }
+            field = value
+        }
 
     init {
         isFocusable = true
         isClickable = true
         setWillNotDraw(false)
-    }
-
-    fun highlight(
-        duration: Long, extraMargins: RectF =
-            RectF(12.toFloatPx(), 12.toFloatPx(), 12.toFloatPx(), 12.toFloatPx())
-    ) {
-        val animator = ValueAnimator.ofFloat(0F, 0.5F, 0F)
-        animator.repeatCount = ValueAnimator.INFINITE
-        animator.interpolator = AccelerateDecelerateInterpolator()
-        animator.duration = duration
-        animator.addUpdateListener {
-            val multipliedMargins =
-                showcaseMargins.offsetFor(extraMargins.multiply(it.animatedValue as Float))
-            applyShowcaseFrame(multipliedMargins)
-            invalidate()
-        }
-        animator.start()
     }
 
     fun setShowcase(bounds: RectF) {
@@ -210,16 +210,17 @@ class SamuraiView @JvmOverloads constructor(
         canvas?.drawPath(framePath, framePaint)
     }
 
-    private fun applyShowcaseFrame(margins: RectF = showcaseMargins) {
+    internal fun applyShowcaseFrame(margins: RectF = showcaseMargins) {
         showcaseFrame.set(showcaseBounds)
         showcaseFrame.applyMargins(margins)
     }
 
     private fun recalculateTooltip() {
         val currentTooltip = tooltip ?: return
+        removeView(currentTooltip.getView(context, this))
 
         val v = currentTooltip.getView(context, this)
-        val p = MarginLayoutParams(MarginLayoutParams.WRAP_CONTENT, MarginLayoutParams.WRAP_CONTENT)
+        val p = currentTooltip.getLayoutParams()
 
         when (calculateFitModeForTooltip(v, viewFrame, showcaseFrame)) {
             Fit.TOP -> {

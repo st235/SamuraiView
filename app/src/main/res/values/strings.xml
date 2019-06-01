@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">SamuraiView Demo App</string>
     <string name="action_share">Share</string>
-    <string name="share_chooser">Share article via:</string>
-    <string name="share_text">Hey, this is my article!</string>
+    <string name="share_chooser">Share Github link via:</string>
+    <string name="share_text">Hey, this is Repository at Github!</string>
 
     <string name="photo_description">You see, wire telegraph is a kind of a very, very long cat. You pull his tail in New York and his head is meowing in Los Angeles. Do you understand this? And radio operates exactly the same way: you send signals here, they receive them there. The only difference is that there is no cat.</string>
     <string-array name="cats_tags">
@@ -24,4 +24,12 @@
         <item>amazing</item>
         <item>excellentcats</item>
     </string-array>
+
+    <string name="button_next">Next</string>
+    <string name="button_finish">Finish</string>
+
+    <string name="tooltip_author"></string>
+    <string name="tooltip_image_title">Hey, this is the Samurai View ⚔️</string>
+    <string name="tooltip_image_content">I can highlight some UI elements, and may add useful tooltip</string>
+    <string name="tooltip_share"></string>
 </resources>

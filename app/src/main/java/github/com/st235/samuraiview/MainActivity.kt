@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -13,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.doOnLayout
+import androidx.core.view.get
 import github.com.st235.lib_samurai.Harakiri
 import github.com.st235.lib_samurai.SamuraiTooltip
 import github.com.st235.lib_samurai.SamuraiView
@@ -26,31 +29,26 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userName: TextView
     private lateinit var samuraiView: SamuraiView
     private lateinit var avatar: CircularImageView
+    private lateinit var feedImage: AppCompatImageView
+
+    private lateinit var nextButtonViewController: NextButtonViewController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        avatar = findViewById(R.id.avatar)
-        userName = findViewById(R.id.user)
-
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val feedImage = findViewById<AppCompatImageView>(R.id.insta_image)
+        avatar = findViewById(R.id.avatar)
+        userName = findViewById(R.id.user)
+        feedImage = findViewById(R.id.insta_image)
         feedImage.setImageBitmap(
             BitmapHelper.decodeSampledBitmapFromResource(
                 resources,
                 R.drawable.cat2, PROFILE_PICTURE_SIZE, PROFILE_PICTURE_SIZE
             )
         )
-
-        samuraiView = findViewById(R.id.samurai_view)
-        samuraiView.frameThickness = 2F
-        samuraiView.frameColor = Color.RED
-        samuraiView.overlayColor = 0xEFFFFFFF.toInt()
-        samuraiView.tooltip = SamuraiTooltip.createForLayout(R.layout.tooltip_layout)
 
         val tagsChipLayout = findViewById<ChipLayout>(R.id.tag_layout)
         val tags = resources.getStringArray(R.array.cats_tags)
@@ -59,7 +57,38 @@ class MainActivity : AppCompatActivity() {
             addChildTag(tagsChipLayout, tag)
         }
 
-        Harakiri(into = samuraiView).highlightAnimationWithDuration(2_000).capture(avatar)
+        samuraiView = findViewById(R.id.samurai_view)
+        samuraiView.visibility = View.GONE
+
+        nextButtonViewController = NextButtonViewController(findViewById(R.id.samurai_next_view)) {
+            when(it) {
+                NextButtonViewController.INTRODUCTION ->
+                    Harakiri(into = samuraiView)
+                            .overlayColorRes(R.color.colorWhite95)
+                            .withTooltip(R.layout.tooltip_image, width = ViewGroup.LayoutParams.MATCH_PARENT)
+                            .capture(feedImage)
+                NextButtonViewController.AUTHOR ->
+                    Harakiri(into = samuraiView)
+                            .rect(16F)
+                            .overlayColorRes(R.color.colorWhite95)
+                            .frameColorRes(R.color.colorPrimaryDark)
+                            .frameThickness(1F)
+                            .margins(0, 0, 6, 0)
+                            .withTooltip(R.layout.tooltip_author, width = ViewGroup.LayoutParams.MATCH_PARENT)
+                            .capture(avatar, userName)
+                NextButtonViewController.SHARE ->
+                    Harakiri(into = samuraiView)
+                            .circle()
+                            .overlayColorRes(R.color.colorWhite95)
+                            .frameColorRes(R.color.colorPrimaryDark)
+                            .frameThickness(1F)
+                            .margins(20, 20, 20, 20)
+                            .withTooltip(R.layout.tooltip_share, width = ViewGroup.LayoutParams.MATCH_PARENT)
+                            .capture(toolbar.findViewById<View>(R.id.action_share))
+                NextButtonViewController.LAST ->
+                    samuraiView.visibility = View.GONE
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -94,16 +123,21 @@ class MainActivity : AppCompatActivity() {
         tagLayout.addView(tagView, params)
     }
 
+    override fun onBackPressed() {
+//        super.onBackPressed()
+        nextButtonViewController.back()
+    }
+
     private fun shareLibrary() {
         val shareBody = getString(R.string.share_text)
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
         sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
         startActivity(
-            Intent.createChooser(
-                sharingIntent,
-                getString(R.string.share_chooser)
-            )
+                Intent.createChooser(
+                        sharingIntent,
+                        getString(R.string.share_chooser)
+                )
         )
     }
 

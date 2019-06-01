@@ -1,12 +1,17 @@
 package github.com.st235.lib_samurai
 
+import android.graphics.Color
+import android.graphics.Rect
 import android.graphics.RectF
 import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.annotation.Dimension
+import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
 import github.com.st235.lib_samurai.geometry.Basis
-import github.com.st235.lib_samurai.utils.Relation
-import github.com.st235.lib_samurai.utils.calculateRelation
-import github.com.st235.lib_samurai.utils.doOnLayout
-import github.com.st235.lib_samurai.utils.transformGeometry
+import github.com.st235.lib_samurai.utils.*
 
 class Harakiri(private val into: SamuraiView) {
 
@@ -14,10 +19,81 @@ class Harakiri(private val into: SamuraiView) {
 
     private var collisionStrategy = CollisionStrategy.CRASH
 
+    private var tooltip: SamuraiTooltip? = null
+
+    private var type: SamuraiView.Type = SamuraiView.Type.RECT
+
+    @ColorInt
+    private var overlayColor: Int = Color.TRANSPARENT
+
+    @ColorInt
+    private var frameColor: Int = Color.TRANSPARENT
+
+    @Dimension(unit = Dimension.DP)
+    private var thickness: Float = 0F
+
+    @Dimension(unit = Dimension.DP)
+    private var roundRadius: Float = 0F
+
+    private val margins = Rect()
+
     private val basis by lazy {
         Basis(into)
     }
 
+    fun overlayColor(@ColorInt color: Int): Harakiri {
+        this.overlayColor = color
+        return this
+    }
+
+    fun overlayColorRes(@ColorRes color: Int): Harakiri {
+        this.overlayColor = ContextCompat.getColor(into.context, color)
+        return this
+    }
+
+    fun frameColor(@ColorInt color: Int): Harakiri {
+        this.frameColor = color
+        return this
+    }
+
+    fun frameColorRes(@ColorRes color: Int): Harakiri {
+        this.frameColor = ContextCompat.getColor(into.context, color)
+        return this
+    }
+
+    fun frameThickness(@Dimension(unit = Dimension.DP) thickness: Float): Harakiri {
+        this.thickness = thickness
+        return this
+    }
+
+    fun rect(@Dimension(unit = Dimension.DP) roundRadius: Float = 0F): Harakiri {
+        type = SamuraiView.Type.RECT
+        this.roundRadius = roundRadius
+        return this
+    }
+
+    fun circle(): Harakiri {
+        type = SamuraiView.Type.CIRCLE
+        return this
+    }
+
+    fun withTooltip(
+            @LayoutRes layoutId: Int,
+            width: Int = ViewGroup.MarginLayoutParams.WRAP_CONTENT,
+            height: Int = ViewGroup.MarginLayoutParams.WRAP_CONTENT
+            ): Harakiri {
+        this.tooltip = SamuraiTooltip.createForLayout(layoutId, width, height)
+        return this
+    }
+
+    fun withTooltip(
+            view: View,
+            width: Int = ViewGroup.MarginLayoutParams.WRAP_CONTENT,
+            height: Int = ViewGroup.MarginLayoutParams.WRAP_CONTENT
+    ): Harakiri {
+        this.tooltip = SamuraiTooltip.createForView(view, width, height)
+        return this
+    }
 
     fun collisionStrategy(strategy: CollisionStrategy = CollisionStrategy.CRASH): Harakiri {
         this.collisionStrategy = strategy
@@ -29,7 +105,19 @@ class Harakiri(private val into: SamuraiView) {
         return this
     }
 
+    fun margins(
+            @Dimension(unit = Dimension.DP) left: Int,
+            @Dimension(unit = Dimension.DP) top: Int,
+            @Dimension(unit = Dimension.DP) right: Int,
+            @Dimension(unit = Dimension.DP) bottom: Int
+    ): Harakiri {
+        margins.set(left, top, right, bottom)
+        return this
+    }
+
     fun capture(vararg views: View) {
+        initOrigin()
+
         into.doOnLayout {
             val resultRect = RectF(Float.MAX_VALUE, Float.MAX_VALUE, 0F, 0F)
 
@@ -55,6 +143,19 @@ class Harakiri(private val into: SamuraiView) {
                 }
             }
         }
+    }
+
+    private fun initOrigin() {
+        if (into.visibility != View.VISIBLE) {
+            into.visibility = View.VISIBLE
+        }
+        into.overlayColor = overlayColor
+        into.frameColor = frameColor
+        into.frameThickness = thickness
+        into.tooltip = tooltip
+        into.type = type
+        into.rectRoundRadius = roundRadius
+        into.setShowcaseMargins(margins.left, margins.top, margins.right, margins.bottom)
     }
 
     enum class CollisionStrategy {

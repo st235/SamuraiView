@@ -11,23 +11,43 @@ internal enum class Fit {
     BOTTOM, TOP, NOWHERE
 }
 
-interface SamuraiTooltip {
-    fun getView(context: Context, parent: ViewGroup): View
+abstract class SamuraiTooltip(
+        private val width: Int = ViewGroup.LayoutParams.WRAP_CONTENT,
+        private val height: Int = ViewGroup.LayoutParams.WRAP_CONTENT
+) {
+    abstract fun getView(context: Context, parent: ViewGroup): View
+
+    fun getLayoutParams(): ViewGroup.MarginLayoutParams =
+            ViewGroup.MarginLayoutParams(width, height)
 
     companion object {
-        fun createForLayout(@LayoutRes layoutId: Int): SamuraiTooltip = ResourceTooltip(layoutId)
+        fun createForLayout(
+                @LayoutRes layoutId: Int,
+                width: Int = ViewGroup.LayoutParams.WRAP_CONTENT,
+                height: Int = ViewGroup.LayoutParams.WRAP_CONTENT
+        ): SamuraiTooltip = ResourceTooltip(layoutId, width, height)
 
-        fun createForView(view: View): SamuraiTooltip = ViewTooltip(view)
+        fun createForView(
+                view: View,
+                width: Int = ViewGroup.LayoutParams.WRAP_CONTENT,
+                height: Int = ViewGroup.LayoutParams.WRAP_CONTENT
+        ): SamuraiTooltip = ViewTooltip(view, width, height)
     }
 }
 
-internal class ViewTooltip(val view: View): SamuraiTooltip {
+internal class ViewTooltip(val view: View, width: Int, height: Int): SamuraiTooltip(width, height) {
     override fun getView(context: Context, parent: ViewGroup): View = view
 }
 
-internal class ResourceTooltip(@LayoutRes val layoutId: Int): SamuraiTooltip {
-    override fun getView(context: Context, parent: ViewGroup): View =
-        LayoutInflater.from(context).inflate(layoutId, parent, false)
+internal class ResourceTooltip(@LayoutRes val layoutId: Int, width: Int, height: Int): SamuraiTooltip(width, height) {
+    private var v: View? = null
+
+    override fun getView(context: Context, parent: ViewGroup): View {
+        if (v == null) {
+            v = LayoutInflater.from(context).inflate(layoutId, parent, false)
+        }
+        return v!!
+    }
 }
 
 internal fun calculateFitModeForTooltip(v: View, into: RectF, showcase: RectF): Fit {

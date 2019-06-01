@@ -30,17 +30,18 @@
     </ScrollView>
 
     <github.com.st235.lib_samurai.SamuraiView
-            android:id="@+id/samurai_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:id="@+id/samurai_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:text="OK"
-                android:layout_margin="16dp"
-                />
+            android:id="@+id/samurai_next_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:text="@string/button_next"
+            android:layout_margin="16dp" />
     </github.com.st235.lib_samurai.SamuraiView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

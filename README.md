@@ -1,6 +1,36 @@
+<img src="https://raw.githubusercontent.com/st235/SamuraiView/master/images/showcase.gif" width="600" height="205">
+
 # SamuraiView
 
 Simple showcase library. Made Samurai great again! ⚔️
+
+## Download
+
+- Maven
+
+```text
+<dependency>
+  <groupId>com.github.st235</groupId>
+  <artifactId>expandablebottombar</artifactId>
+  <version>X.X</version>
+  <type>pom</type>
+</dependency>
+```
+
+- Gradle
+
+```text
+implementation 'com.github.st235:expandablebottombar:X.X'
+```
+
+- Ivy
+
+```text
+<dependency org='com.github.st235' name='expandablebottombar' rev='X.X'>
+  <artifact name='expandablebottombar' ext='pom' ></artifact>
+</dependency>
+```
+
 
 ## Usage
 

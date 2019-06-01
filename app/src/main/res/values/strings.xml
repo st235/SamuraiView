@@ -28,8 +28,12 @@
     <string name="button_next">Next</string>
     <string name="button_finish">Finish</string>
 
-    <string name="tooltip_author"></string>
-    <string name="tooltip_image_title">Hey, this is the Samurai View ⚔️</string>
-    <string name="tooltip_image_content">I can highlight some UI elements, and may add useful tooltip</string>
-    <string name="tooltip_share"></string>
+    <string name="tooltip_image_title">Hey, I am Samurai View ⚔️</string>
+    <string name="tooltip_image_content">I can highlight some UI elements, may add useful tooltip and show animations</string>
+
+    <string name="tooltip_author_title">This is my author</string>
+    <string name="tooltip_author_content">Follow him on Github: @st235</string>
+
+    <string name="tooltip_share_title">Oh, and of course share</string>
+    <string name="tooltip_share_content">Share my repos link with your friends and enjoy</string>
 </resources>

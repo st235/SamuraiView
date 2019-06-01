@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                             .circle()
                             .overlayColorRes(R.color.colorWhite95)
                             .frameColorRes(R.color.colorPrimaryDark)
-                            .frameThickness(1F)
+                            .frameThickness(2F)
                             .margins(20, 20, 20, 20)
                             .withTooltip(R.layout.tooltip_share, width = ViewGroup.LayoutParams.MATCH_PARENT)
                             .capture(toolbar.findViewById<View>(R.id.action_share))

@@ -1,20 +1,18 @@
-package github.com.st235.lib_showcase
+package github.com.st235.lib_samurai
 
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
-import androidx.core.graphics.plus
-import github.com.st235.lib_showcase.utils.*
-import github.com.st235.lib_showcase.utils.applyMargins
-import github.com.st235.lib_showcase.utils.multiplyAsVector
-import github.com.st235.lib_showcase.utils.toFloatPx
-import github.com.st235.lib_showcase.utils.toPx
+import github.com.st235.lib_samurai.utils.*
+import github.com.st235.lib_samurai.utils.applyMargins
+import github.com.st235.lib_samurai.utils.multiply
+import github.com.st235.lib_samurai.utils.toFloatPx
+import github.com.st235.lib_samurai.utils.toPx
 
 
 class SamuraiView @JvmOverloads constructor(
@@ -76,7 +74,7 @@ class SamuraiView @JvmOverloads constructor(
             invalidate()
         }
 
-    var tooltip: ShowCaseTooltip? = null
+    var tooltip: SamuraiTooltip? = null
 
     init {
         isFocusable = true
@@ -94,7 +92,7 @@ class SamuraiView @JvmOverloads constructor(
         animator.duration = duration
         animator.addUpdateListener {
             val multipliedMargins =
-                showcaseMargins.newWithMargins(extraMargins.multiplyAsVector(it.animatedValue as Float))
+                showcaseMargins.offsetFor(extraMargins.multiply(it.animatedValue as Float))
             applyShowcaseFrame(multipliedMargins)
             invalidate()
         }
@@ -218,22 +216,20 @@ class SamuraiView @JvmOverloads constructor(
     }
 
     private fun recalculateTooltip() {
-        if (tooltip == null) {
-            return
-        }
+        val currentTooltip = tooltip ?: return
 
-        val v = LayoutInflater.from(context).inflate(tooltip!!.layoutId, this, false)
+        val v = currentTooltip.getView(context, this)
         val p = MarginLayoutParams(MarginLayoutParams.WRAP_CONTENT, MarginLayoutParams.WRAP_CONTENT)
 
-        val fitSpec = tooltip!!.tryToFit(v, viewFrame, showcaseFrame)
-
-        when (fitSpec) {
+        when (calculateFitModeForTooltip(v, viewFrame, showcaseFrame)) {
             Fit.TOP -> {
                 p.topMargin = (showcaseFrame.top - v.measuredHeight).toInt()
             }
             Fit.BOTTOM -> {
                 p.topMargin = showcaseFrame.bottom.toInt()
             }
+            else ->
+                throw IllegalStateException("There is no space for tooltip")
         }
 
         addView(v, p)

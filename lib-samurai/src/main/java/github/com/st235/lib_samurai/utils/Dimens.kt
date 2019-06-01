@@ -1,4 +1,4 @@
-package github.com.st235.lib_showcase.utils
+package github.com.st235.lib_samurai.utils
 
 import android.content.res.Resources
 import android.util.TypedValue

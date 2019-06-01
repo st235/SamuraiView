@@ -1,8 +1,7 @@
-package github.com.st235.showcaseview
+package github.com.st235.samuraiview.components
 
 import android.annotation.TargetApi
 import android.content.Context
-import android.content.res.TypedArray
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -11,6 +10,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import androidx.annotation.*
+import github.com.st235.samuraiview.R
 
 /**
  * Displays image resources, for example [Drawable] resources

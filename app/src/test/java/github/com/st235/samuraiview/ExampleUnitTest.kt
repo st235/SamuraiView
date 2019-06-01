@@ -1,4 +1,4 @@
-package github.com.st235.showcaseview
+package github.com.st235.samuraiview
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package github.com.st235.showcaseview
+package github.com.st235.samuraiview.components
 
 import android.annotation.TargetApi
 import android.content.Context
@@ -157,8 +157,8 @@ class ChipLayout : ViewGroup {
             if (child.visibility == View.GONE) continue
 
             child.measure(
-                View.MeasureSpec.makeMeasureSpec(layoutWidth, View.MeasureSpec.AT_MOST),
-                View.MeasureSpec.makeMeasureSpec(layoutHeight, View.MeasureSpec.AT_MOST)
+                MeasureSpec.makeMeasureSpec(layoutWidth, View.MeasureSpec.AT_MOST),
+                MeasureSpec.makeMeasureSpec(layoutHeight, View.MeasureSpec.AT_MOST)
             )
 
             width = child.measuredWidth + params.leftMargin + params.rightMargin

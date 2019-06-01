@@ -1,16 +1,15 @@
-package github.com.st235.lib_showcase.utils
+package github.com.st235.lib_samurai.utils
 
 import android.graphics.RectF
 
 internal enum class Relation {
     INDEPENDENT, CONTAINS, INTERSECT
 }
-
-internal fun RectF.newWithMargins(another: RectF) =
-    RectF(left + another.left, top + another.top, right + another.right, bottom + another.bottom)
-
-internal fun RectF.multiplyAsVector(times: Float) =
+internal fun RectF.multiply(times: Float) =
     RectF(left * times, top * times, right * times, bottom * times)
+
+internal fun RectF.offsetFor(another: RectF) =
+    RectF(left + another.left, top + another.top, right + another.right, bottom + another.bottom)
 
 internal fun RectF.applyMargins(margins: RectF) {
     left -= margins.left

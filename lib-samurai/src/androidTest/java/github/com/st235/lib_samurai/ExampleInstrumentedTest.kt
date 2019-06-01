@@ -1,4 +1,4 @@
-package github.com.st235.showcaseview
+package github.com.st235.lib_samurai
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("github.com.st235.showcaseview", appContext.packageName)
+        assertEquals("github.com.st235.lib_showcase.test", appContext.packageName)
     }
 }

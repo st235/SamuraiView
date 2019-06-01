@@ -1,32 +1,16 @@
-package github.com.st235.lib_showcase
+package github.com.st235.lib_samurai
 
 import android.graphics.RectF
 import android.view.View
-import github.com.st235.lib_showcase.geometry.Basis
-import github.com.st235.lib_showcase.utils.Relation
-import github.com.st235.lib_showcase.utils.calculateRelation
-import github.com.st235.lib_showcase.utils.doOnLayout
-import github.com.st235.lib_showcase.utils.transformGeometry
+import github.com.st235.lib_samurai.geometry.Basis
+import github.com.st235.lib_samurai.utils.Relation
+import github.com.st235.lib_samurai.utils.calculateRelation
+import github.com.st235.lib_samurai.utils.doOnLayout
+import github.com.st235.lib_samurai.utils.transformGeometry
 
 class Harakiri(private val into: SamuraiView) {
 
-    enum class CollisionStrategy {
-        CRASH {
-            override fun shouldSkipOnCollision(view: View): Boolean {
-                throw IllegalStateException("$view has intersect or out of the overlay bound")
-            }
-        },
-        SKIP {
-            override fun shouldSkipOnCollision(view: View): Boolean = true
-        },
-        FORCE_ADD {
-            override fun shouldSkipOnCollision(view: View): Boolean = false
-        };
-
-        abstract fun shouldSkipOnCollision(view: View): Boolean
-    }
-
-    private var highlightDuration = 0L
+    private var highlightDuration = NO_ANIMATION
 
     private var collisionStrategy = CollisionStrategy.CRASH
 
@@ -40,7 +24,7 @@ class Harakiri(private val into: SamuraiView) {
         return this
     }
 
-    fun highlightDuration(highlightDuration: Long = 0L): Harakiri {
+    fun highlightAnimationWithDuration(highlightDuration: Long = NO_ANIMATION): Harakiri {
         this.highlightDuration = highlightDuration
         return this
     }
@@ -71,5 +55,25 @@ class Harakiri(private val into: SamuraiView) {
                 }
             }
         }
+    }
+
+    enum class CollisionStrategy {
+        CRASH {
+            override fun shouldSkipOnCollision(view: View): Boolean {
+                throw IllegalStateException("$view has intersect or out of the overlay bound")
+            }
+        },
+        SKIP {
+            override fun shouldSkipOnCollision(view: View): Boolean = true
+        },
+        FORCE_ADD {
+            override fun shouldSkipOnCollision(view: View): Boolean = false
+        };
+
+        abstract fun shouldSkipOnCollision(view: View): Boolean
+    }
+
+    companion object {
+        const val NO_ANIMATION = 0L
     }
 }

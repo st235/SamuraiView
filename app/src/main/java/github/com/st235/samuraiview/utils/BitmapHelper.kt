@@ -1,4 +1,4 @@
-package github.com.st235.showcaseview
+package github.com.st235.samuraiview.utils
 
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -20,7 +20,8 @@ object BitmapHelper {
         options.inJustDecodeBounds = true
         BitmapFactory.decodeResource(res, resId, options)
 
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight)
+        options.inSampleSize =
+            calculateInSampleSize(options, reqWidth, reqHeight)
 
         options.inJustDecodeBounds = false
         return BitmapFactory.decodeResource(res, resId, options)

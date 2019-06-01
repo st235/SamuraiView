@@ -1,4 +1,4 @@
-package github.com.st235.lib_showcase
+package github.com.st235.lib_samurai
 
 import org.junit.Test
 

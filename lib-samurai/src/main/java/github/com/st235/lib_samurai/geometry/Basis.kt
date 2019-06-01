@@ -1,4 +1,4 @@
-package github.com.st235.lib_showcase.geometry
+package github.com.st235.lib_samurai.geometry
 
 import android.view.View
 

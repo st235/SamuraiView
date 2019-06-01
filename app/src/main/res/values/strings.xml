@@ -2,27 +2,23 @@
     <string name="app_name">SamuraiView Demo App</string>
     <string name="action_share">Share</string>
     <string name="share_chooser">Share Github link via:</string>
-    <string name="share_text">Hey, this is Repository at Github!</string>
+    <string name="share_text">Do u use Kotlin in your project and need a showcase library? Take a look for: https://github.com/st235/SamuraiView</string>
 
-    <string name="photo_description">You see, wire telegraph is a kind of a very, very long cat. You pull his tail in New York and his head is meowing in Los Angeles. Do you understand this? And radio operates exactly the same way: you send signals here, they receive them there. The only difference is that there is no cat.</string>
+    <string name="photo_description">If a Samurai was likely to be captured by an enemy or did not follow bushido he was supposed to kill himself in a ritual called seppuku that involved using a sword or blade to pierce the stomach, followed by beheading. It could be performed quickly if needed or as a long ritual.</string>
     <string-array name="cats_tags">
-        <item>cat</item>
-        <item>cats</item>
-        <item>cutecatskittens</item>
-        <item>betterwithpets</item>
-        <item>lovecats</item>
-        <item>ichliebekatzen</item>
-        <item>katzenliebe</item>
-        <item>catstagram</item>
-        <item>instacat</item>
-        <item>blackcat</item>
-        <item>catsummer</item>
-        <item>whiskerwednesday</item>
-        <item>🐱</item>
-        <item>tabbies</item>
-        <item>katt</item>
-        <item>amazing</item>
-        <item>excellentcats</item>
+        <item>samurai</item>
+        <item>view</item>
+        <item>fun facts</item>
+        <item>showcase</item>
+        <item>highlight</item>
+        <item>capturing</item>
+        <item>samuraiview</item>
+        <item>github</item>
+        <item>st235</item>
+        <item>⚔️</item>
+        <item>library</item>
+        <item>android</item>
+        <item>kotlin</item>
     </string-array>
 
     <string name="button_next">Next</string>

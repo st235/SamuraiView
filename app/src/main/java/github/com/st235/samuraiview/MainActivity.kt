@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         feedImage.setImageBitmap(
             BitmapHelper.decodeSampledBitmapFromResource(
                 resources,
-                R.drawable.cat2, PROFILE_PICTURE_SIZE, PROFILE_PICTURE_SIZE
+                R.drawable.photo, PROFILE_PICTURE_SIZE, PROFILE_PICTURE_SIZE
             )
         )
 

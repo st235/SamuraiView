@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/st235/SamuraiView/master/images/showcase.gif" width="600" height="205">
+<img src="https://raw.githubusercontent.com/st235/SamuraiView/master/images/showcase.gif" width="600" height="228">
 
 # SamuraiView
 [ ![Download](https://api.bintray.com/packages/st235/maven/samuraiview/images/download.svg) ](https://bintray.com/st235/maven/samuraiview/_latestVersion)

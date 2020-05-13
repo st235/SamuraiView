@@ -1,7 +1,6 @@
 package github.com.st235.samuraiview
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -14,15 +13,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.doOnLayout
-import androidx.core.view.get
 import github.com.st235.lib_samurai.Harakiri
-import github.com.st235.lib_samurai.SamuraiTooltip
 import github.com.st235.lib_samurai.SamuraiView
-import github.com.st235.samuraiview.components.ChipLayout
 import github.com.st235.samuraiview.components.CircularImageView
 import github.com.st235.samuraiview.utils.BitmapHelper
 import github.com.st235.samuraiview.utils.dpToPx
+import st235.com.github.flow_layout.FlowLayout
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        val tagsChipLayout = findViewById<ChipLayout>(R.id.tag_layout)
+        val tagsChipLayout = findViewById<FlowLayout>(R.id.tag_layout)
         val tags = resources.getStringArray(R.array.cats_tags)
 
         for (tag in tags) {

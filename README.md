@@ -69,16 +69,13 @@ Then to highlight some views just `capture` it!
             .capture(toolbar.findViewById<View>(R.id.action_share))
 ```
 
-## About
-Application is an implementation example of custom View and ViewGroup logic.
-
-Photos were taken from [unsplash](https://unsplash.com/)
-
 ## Screens
 
 <img src="https://raw.githubusercontent.com/st235/SamuraiView/master/images/introduction.png" width="270" height="480"> <img src="https://raw.githubusercontent.com/st235/SamuraiView/master/images/author.png" width="270" height="480"> <img src="https://raw.githubusercontent.com/st235/SamuraiView/master/images/share.png" width="270" height="480">
 
-### License
+### Licenses
+
+Photos were taken from [unsplash](https://unsplash.com/)
 
 ```text
 MIT License

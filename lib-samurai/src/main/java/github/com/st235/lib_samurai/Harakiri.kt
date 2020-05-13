@@ -118,7 +118,7 @@ class Harakiri(private val into: SamuraiView) {
     fun capture(vararg views: View) {
         initOrigin()
 
-        into.doOnLayout {
+        ViewLoadingRequest(into) {
             val resultRect = RectF(Float.MAX_VALUE, Float.MAX_VALUE, 0F, 0F)
 
             for (view in views) {

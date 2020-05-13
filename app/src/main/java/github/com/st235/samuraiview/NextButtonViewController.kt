@@ -16,10 +16,13 @@ class NextButtonViewController(nextButton: View, private val onStep: (Int) -> Un
         onStep(currentStep)
     }
 
-    fun back() {
+    fun back(): Boolean {
+        if (currentStep <= INTRODUCTION) {
+            return false
+        }
         currentStep -= 1
-        if (currentStep <= INTRODUCTION) currentStep = INTRODUCTION
         onStep(currentStep)
+        return true
     }
 
     companion object {

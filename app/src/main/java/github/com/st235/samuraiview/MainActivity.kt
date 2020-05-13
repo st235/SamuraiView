@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         val tagsChipLayout = findViewById<FlowLayout>(R.id.tag_layout)
-        val tags = resources.getStringArray(R.array.cats_tags)
+        val tags = resources.getStringArray(R.array.tags)
 
         for (tag in tags) {
             addChildTag(tagsChipLayout, tag)
@@ -120,8 +120,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-//        super.onBackPressed()
-        nextButtonViewController.back()
+        if (!nextButtonViewController.back()) {
+            super.onBackPressed()
+        }
     }
 
     private fun shareLibrary() {

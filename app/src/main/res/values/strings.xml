@@ -5,7 +5,7 @@
     <string name="share_text">Do u use Kotlin in your project and need a showcase library? Take a look for: https://github.com/st235/SamuraiView</string>
 
     <string name="photo_description">If a Samurai was likely to be captured by an enemy or did not follow bushido he was supposed to kill himself in a ritual called seppuku that involved using a sword or blade to pierce the stomach, followed by beheading. It could be performed quickly if needed or as a long ritual.</string>
-    <string-array name="cats_tags">
+    <string-array name="tags">
         <item>samurai</item>
         <item>view</item>
         <item>fun facts</item>
@@ -30,6 +30,6 @@
     <string name="tooltip_author_title">This is my author</string>
     <string name="tooltip_author_content">Follow him on Github: @st235</string>
 
-    <string name="tooltip_share_title">Oh, and of course share</string>
-    <string name="tooltip_share_content">Share my repos link with your friends and enjoy</string>
+    <string name="tooltip_share_title">Share it faster, faster!</string>
+    <string name="tooltip_share_content">Share my repos link with your friends</string>
 </resources>

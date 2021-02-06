@@ -1,38 +1,19 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.novoda.bintray-release'
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.novoda:bintray-release:0.9.2'
-    }
-}
-
-publish {
-    userOrg = 'st235'
-    groupId = 'com.github.st235'
-    artifactId = 'samuraiview'
-    publishVersion = '1.0.0'
-    desc = 'Simple showcase library. Made Samurai great again!'
-    website = 'https://github.com/st235/SamuraiView'
-}
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 29
-        versionCode 8
-        versionName "1.0.0"
+        targetSdkVersion 30
+        versionCode project.property('VERSION_CODE') as int
+        versionName project.property('VERSION_NAME')
     }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
 }

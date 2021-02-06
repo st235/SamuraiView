@@ -1,11 +1,25 @@
 <img src="https://raw.githubusercontent.com/st235/SamuraiView/master/images/showcase.gif" width="600" height="228">
 
 # SamuraiView
-[ ![Download](https://api.bintray.com/packages/st235/maven/samuraiview/images/download.svg) ](https://bintray.com/st235/maven/samuraiview/_latestVersion)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.st235/samuraiview/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.st235/samuraiview)
 
 Simple showcase library. Made Samurai great again! ⚔️
 
 ## Download
+
+__Important: library was migrated from JCenter to MavenCentral__ 
+
+It means that it may be necessary to add __mavenCentral__ repository to your repositories list
+
+```groovy
+allprojects {
+    repositories {
+        // your repositories
+
+        mavenCentral()
+    }
+}
+```
 
 - Maven
 
